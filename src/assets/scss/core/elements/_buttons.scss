@@ -1,0 +1,7 @@
+.btn-box {
+    text-align: center;
+
+    &__primary {
+        @include btn-primary;
+    }
+}

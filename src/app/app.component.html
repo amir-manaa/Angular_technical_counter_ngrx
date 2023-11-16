@@ -1,0 +1,8 @@
+<ui-header></ui-header>
+<div 
+    class="container" 
+    [ngClass]="{'hight-bg-color': (counter$ | async)?.value === 10, 'low-bg-color': (counter$ | async)?.value === -10}"
+>
+    <router-outlet/>
+</div>
+

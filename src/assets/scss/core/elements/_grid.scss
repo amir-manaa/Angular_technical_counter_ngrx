@@ -1,0 +1,12 @@
+.container {
+    @include flex-center;
+    height: calc(100% - 60px);
+
+    &.hight-bg-color {
+        background-color: $danger-color;
+    }
+
+    &.low-bg-color {
+         background-color: $success-color;
+    }
+}

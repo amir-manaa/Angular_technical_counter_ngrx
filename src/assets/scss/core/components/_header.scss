@@ -1,0 +1,24 @@
+.mat-toolbar.mat-primary {
+    height: 60px;
+}
+.logo-link {
+    display: flex;
+    margin-right: 2rem;
+}
+
+.link {
+    font-size: 1rem;;
+    margin: 0 15px;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+
+    &.active {
+        text-decoration: underline;
+    }
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+  

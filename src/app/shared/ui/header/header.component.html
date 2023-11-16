@@ -1,0 +1,9 @@
+<mat-toolbar color="primary">
+    <a routerLink="/up" class="logo-link">
+        <img ngSrc="assets/img/counter.png" width="50" height="50" class="logo" priority>
+    </a>
+    <span class="spacer"></span>
+    <a routerLink="/up" class="link"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Increment Counter</a>
+    <a routerLink="/down" class="link"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Decrement Counter</a>
+    <a routerLink="/reset" class="link"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Reset Counter</a>
+</mat-toolbar>

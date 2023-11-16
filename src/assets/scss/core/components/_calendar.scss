@@ -1,0 +1,22 @@
+.calendar {
+    text-align: center;
+
+    &__field {
+        margin-bottom: 25px;
+    }
+    .alert-txt {
+        display: block;
+        text-align: left;
+        font-size: $font-size-alert;
+        color: $danger-color;
+        font-weight: bold;
+        &__white {
+            color: white !important;
+        }
+        
+    }
+    
+    .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+    }
+}
