@@ -8,6 +8,8 @@ Simple counter application.
 
 counter application with 3 pages, /up to increment counter, /down to decrement counter and /reset to initialize the counter and X values to 0.
 
+In this project i use the NgRx library for reactive state management.
+
 To persist data, i use a fake REST API json-server npm module : [Json server](https://www.npmjs.com/package/json-server),
 
 And concurrently to run multiple commands : [concurrently](https://www.npmjs.com/package/concurrently)
