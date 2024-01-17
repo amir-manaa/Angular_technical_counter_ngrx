@@ -15,7 +15,7 @@ export class CounterService {
   ) {}
 
   getCounter(): Observable<ICounter>{
-    return this.http.get<ICounter>(`${this.COUNTER_API_URL}`).pipe()
+    return this.http.get<ICounter>(`${this.COUNTER_API_URL}`);
   }
 
   incrementCounter(counter: ICounter): Observable<ICounter> {
