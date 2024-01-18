@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, Subject, take, takeUntil } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
@@ -12,29 +12,29 @@ import { ICounter } from './../../../core/models';
   styleUrls: ['./decrement-counter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DecrementCounterComponent implements OnInit, OnDestroy {
+export class DecrementCounterComponent implements OnInit {
 
   counter$!: Observable<ICounter>;
-  private destroy$!: Subject<boolean>;
 
   constructor(
-    private store: Store
+    private store: Store<ICounter>
   ) {}
 
   ngOnInit(): void {
     this.store.dispatch(CounterActions.loadCounter());
-    this.counter$ = this.store.pipe(select(counterSelectors.getCounter)).pipe(take(1));
+    this.counter$ = this.store.pipe(
+      select(counterSelectors.getCounter),
+      take(1)
+    );
   }
 
   decrementCounter() {
     this.counter$.subscribe((counter: ICounter) => {
       this.store.dispatch(CounterActions.decrementCounter({counter: counter}));
-      this.counter$ = this.store.pipe(select(counterSelectors.getCounter)).pipe(take(1));
-      takeUntil(this.destroy$);
+      this.counter$ = this.store.pipe(
+        select(counterSelectors.getCounter),
+        take(1)
+      );
     })
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
   }
 }

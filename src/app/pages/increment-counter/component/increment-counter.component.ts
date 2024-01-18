@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, Subject, take, takeUntil } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
@@ -12,10 +12,9 @@ import { ICounter } from 'src/app/core/models';
   styleUrls: ['./increment-counter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IncrementCounterComponent implements OnInit, OnDestroy {
+export class IncrementCounterComponent implements OnInit {
 
   counter$!: Observable<ICounter>;
-  private destroy$!: Subject<boolean>;
   
   constructor(
     private store: Store<ICounter>
@@ -23,19 +22,19 @@ export class IncrementCounterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(CounterActions.loadCounter());
-    this.counter$ = this.store.pipe(select(counterSelectors.getCounter)).pipe(take(1));
+    this.counter$ = this.store.pipe(
+      select(counterSelectors.getCounter),
+      take(1)
+    );
   }
 
   incrementCounter() {
     this.counter$.subscribe((counter: ICounter) => {
-        this.store.dispatch(CounterActions.incrementCounter({ counter }));
-        this.counter$ = this.store.pipe(select(counterSelectors.getCounter)).pipe(take(1));
-        takeUntil(this.destroy$);
-      }    
+      this.store.dispatch(CounterActions.incrementCounter({ counter }));
+      this.counter$ = this.store.pipe(
+        select(counterSelectors.getCounter),
+        take(1)
+      )}    
     )
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
   }
 }
