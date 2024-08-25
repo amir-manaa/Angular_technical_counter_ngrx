@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable, Subject, take, takeUntil } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import { CounterActions } from '@rootStore';
