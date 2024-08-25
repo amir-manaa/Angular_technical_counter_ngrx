@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -17,9 +17,7 @@ export class AppComponent implements OnInit {
 
   counter$!: Observable<ICounter>
   
-  constructor(
-    private store: Store<ICounter>
-  ) {}
+  private store = inject(Store<ICounter>);
 
   title = 'counter';
 
