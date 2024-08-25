@@ -34,7 +34,7 @@ import { CounterEffects } from './../state/counter-effects';
     StoreDevtoolsModule.instrument({ 
       maxAge: 25, 
       logOnly: !isDevMode() 
-    }),
+    , connectInZone: true}),
     EffectsModule.forRoot([CounterEffects])
   ],
   exports: [
