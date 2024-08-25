@@ -2,9 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, Subject, take, takeUntil } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { CounterActions } from './../../../state/counter-action';
-import * as counterSelectors from './../../../state/counter-selectors';
-import { ICounter } from './../../../core/models';
+import { CounterActions } from '@rootStore';
+import { counterSelectors } from '@rootStore';
+import { ICounter } from '@rootModels';
 
 @Component({
   selector: 'app-decrement-counter',

@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { ICounter } from 'src/app/core/models';
-import { CounterActions } from './../../state/counter-action';
-import * as counterSelectors from './../../state/counter-selectors';
+import { ICounter } from '@rootModels';
+import { CounterActions } from '@rootStore';
+import { counterSelectors } from '@rootStore';
 
 
 @Component({

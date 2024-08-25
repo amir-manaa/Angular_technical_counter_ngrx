@@ -4,11 +4,11 @@ import { Subject } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { CounterService } from '../../../core/services';
-import { CounterActions } from './../../../state/counter-action';
-import { isAgeOver18 } from '../../../shared/utils';
-import { ICounter } from './../../../core/models';
-import * as counterSelectors from './../../../state/counter-selectors';
+import { CounterService } from '@rootServices';
+import { CounterActions } from '@rootStore';
+import { isAgeOver18 } from '@rootUtils';
+import { ICounter } from '@rootModels';
+import { counterSelectors } from '@rootStore';
 
 @Component({
   selector: 'app-reset-counter',
