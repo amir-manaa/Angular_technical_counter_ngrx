@@ -9,11 +9,11 @@
         </mat-datepicker-toggle>
         <mat-datepicker #datepicker touchUi="true" disabled="false"></mat-datepicker>
       </mat-form-field>
-      <ng-container *ngIf="submit && birthdayForm.invalid">
+      @if(submit && birthdayForm.invalid) {
         <mat-hint class="alert-txt" [class.alert-txt__white]="(counter$ | async)?.value == 10">
           Invalid or empty birthday date field. 
         </mat-hint>
-      </ng-container>
+      }
     </div>
     <div class="btn-box">
       <button type="submit" class="btn-box__primary">Reset counter</button>

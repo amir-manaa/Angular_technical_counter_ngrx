@@ -1,14 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, DestroyRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { Store, select } from '@ngrx/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { CounterService } from '../../../core/services';
-import { CounterActions } from './../../../state/counter-action';
-import { isAgeOver18 } from '../../../shared/utils';
-import { ICounter } from './../../../core/models';
-import * as counterSelectors from './../../../state/counter-selectors';
+import { CounterService } from '@rootServices';
+import { CounterActions } from '@rootStore';
+import { isAgeOver18 } from '@rootUtils';
+import { ICounter } from '@rootModels';
+import { counterSelectors } from '@rootStore';
 
 @Component({
   selector: 'app-reset-counter',
@@ -23,12 +24,11 @@ export class ResetCounterComponent implements OnInit, OnDestroy {
   birthdayForm!: FormGroup;
   maxCalendarDate = new Date();
 
-  constructor(
-    private readonly formBuilder: FormBuilder,
-    private counterService: CounterService,
-    private _snackBar: MatSnackBar,
-    private store: Store<ICounter>
-  ) {}
+  private formBuilder = inject(FormBuilder);
+  private destroyRef = inject(DestroyRef);
+  private counterService = inject(CounterService);
+  private _snackBar = inject(MatSnackBar);
+  private store = inject(Store<ICounter>);
 
   ngOnInit(): void {
     this.getCounterValues();
@@ -55,10 +55,13 @@ export class ResetCounterComponent implements OnInit, OnDestroy {
 
   private getCounterValues() {
     this.store.dispatch(CounterActions.loadCounter());
-    this.store.pipe(select(counterSelectors.getCounter)).subscribe(counter => {
-      this.counter$.next(counter);
-      console.log(counter.value);
-    });
+    this.store.pipe(select(counterSelectors.getCounter))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef)
+      )  
+      .subscribe(counter => {
+        this.counter$.next(counter);
+      });
   }
 
   private createForm() {

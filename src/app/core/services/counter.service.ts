@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ICounter } from './../models/counter';
@@ -9,10 +9,8 @@ import { ICounter } from './../models/counter';
 export class CounterService {
 
   private COUNTER_API_URL = 'http://localhost:3000/counter';
-
-  constructor(
-    private http: HttpClient
-  ) {}
+  
+  private http = inject(HttpClient);
 
   getCounter(): Observable<ICounter>{
     return this.http.get<ICounter>(`${this.COUNTER_API_URL}`);

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs'
 
@@ -9,10 +9,8 @@ import { CounterService } from './../core/services';
 @Injectable()
 export class CounterEffects{
 
-  constructor(
-    private action$: Actions,
-    private counterService: CounterService
-  ) {}
+  private action$ = inject(Actions);
+  private counterService = inject(CounterService);
 
     loadCounter$ = createEffect(() => 
         this.action$.pipe(

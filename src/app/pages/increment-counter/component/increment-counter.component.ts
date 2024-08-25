@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable, Subject, take, takeUntil } from 'rxjs';
+import { Component, OnInit, ChangeDetectionStrategy, DestroyRef, inject } from '@angular/core';
+import { Observable, take } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { Store, select } from '@ngrx/store';
 
-import * as counterSelectors from './../../../state/counter-selectors';
-import { CounterActions } from './../../../state/counter-action';
-import { ICounter } from 'src/app/core/models';
+import { counterSelectors } from '@rootStore';
+import { CounterActions } from '@rootStore';
+import { ICounter } from '@rootModels';
 
 @Component({
   selector: 'app-increment-counter',
@@ -15,10 +16,8 @@ import { ICounter } from 'src/app/core/models';
 export class IncrementCounterComponent implements OnInit {
 
   counter$!: Observable<ICounter>;
-  
-  constructor(
-    private store: Store<ICounter>
-  ) {}
+  private destroyRef = inject(DestroyRef);
+  private store = inject(Store<ICounter>);
 
   ngOnInit(): void {
     this.store.dispatch(CounterActions.loadCounter());
@@ -29,7 +28,11 @@ export class IncrementCounterComponent implements OnInit {
   }
 
   incrementCounter() {
-    this.counter$.subscribe((counter: ICounter) => {
+    this.counter$
+    .pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ) 
+    .subscribe((counter: ICounter) => {
       this.store.dispatch(CounterActions.incrementCounter({ counter }));
       this.counter$ = this.store.pipe(
         select(counterSelectors.getCounter),
